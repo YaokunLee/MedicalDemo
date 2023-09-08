@@ -24,6 +24,14 @@
         <item name="android:dialogTheme">@style/Dialog.Theme</item>
     </style>
 
+    <style name="MyDarkActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- 设置 Toolbar 的标题颜色 -->
+        <item name="android:textColorPrimary">#000000</item>
+        <!-- 设置 Toolbar 的子标题颜色 -->
+        <item name="android:textColorSecondary">#000000</item>
+    </style>
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

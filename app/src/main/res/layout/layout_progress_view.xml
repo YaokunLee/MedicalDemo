@@ -1,0 +1,21 @@
+<!-- res/layout/progress_view_layout.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="2dp"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/yellowSection"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="#FFFF00" /> <!-- 黄色部分 -->
+
+    <View
+        android:id="@+id/greySection"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="#808080" /> <!-- 灰色部分 -->
+
+</LinearLayout>

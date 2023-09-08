@@ -34,7 +34,7 @@ public class AdapterCardViewImg extends RecyclerView.Adapter<RecyclerView.ViewHo
         public ViewHolder(View v) {
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
-            title = (TextView) v.findViewById(R.id.title);
+            title = (TextView) v.findViewById(R.id.instruction);
             subtitle = (TextView) v.findViewById(R.id.subtitle);
         }
     }

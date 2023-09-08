@@ -99,7 +99,7 @@ public class SliderImageHeaderAuto extends AppCompatActivity {
         // displaying selected image first
         viewPager.setCurrentItem(0);
         addBottomDots(layout_dots, adapterImageSlider.getCount(), 0);
-        ((TextView) findViewById(R.id.title)).setText(items.get(0).name);
+        ((TextView) findViewById(R.id.instruction)).setText(items.get(0).name);
         ((TextView) findViewById(R.id.brief)).setText(items.get(0).brief);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -108,7 +108,7 @@ public class SliderImageHeaderAuto extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int pos) {
-                ((TextView) findViewById(R.id.title)).setText(items.get(pos).name);
+                ((TextView) findViewById(R.id.instruction)).setText(items.get(pos).name);
                 ((TextView) findViewById(R.id.brief)).setText(items.get(pos).brief);
                 addBottomDots(layout_dots, adapterImageSlider.getCount(), pos);
             }

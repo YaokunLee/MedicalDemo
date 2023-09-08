@@ -3,19 +3,29 @@ package com.material.components.activity.card;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.material.components.R;
 import com.material.components.utils.Tools;
+import com.material.components.view.ProgressView;
+
+import java.util.ArrayList;
 
 public class CardWizardOverlap extends AppCompatActivity {
 
@@ -25,23 +35,29 @@ public class CardWizardOverlap extends AppCompatActivity {
     private Button btnNext;
     private MyViewPagerAdapter myViewPagerAdapter;
     private String about_title_array[] = {
-            "Ready to Travel",
-            "Pick the Ticket",
-            "Flight to Destination",
-            "Enjoy Holiday"
+            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
+            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
+            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
+            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:"
     };
     private String about_description_array[] = {
-            "Choose your destination, plan Your trip. Pick the best place for Your holiday",
-            "Select the day, pick Your ticket. We give you the best prices. We guarantee!",
-            "Safe and Comfort flight is our priority. Professional crew and services.",
-            "Enjoy your holiday, Don't forget to feel the moment and take a photo!",
+            "I didn't sleep well.",
+            "I don't feel like eating anything.",
+            "I feel physically fatigued and weak, with no energy or strength.",
+            "I often feel like crying.",
     };
-    private int about_images_array[] = {
-            R.drawable.img_wizard_1,
-            R.drawable.img_wizard_2,
-            R.drawable.img_wizard_3,
-            R.drawable.img_wizard_4
-    };
+
+    static String[] B = {"1 - strongly disagree", "2", "3", "4", "5 - strongly agree"};
+
+    // 假设你想要A数组包含3个B数组的元素
+    static String[][] A = {B, B, B, B};
+
+
+    private void initStatusBar() {
+        Tools.setSystemBarColor(this, R.color.white);
+        Tools.setSystemBarLight(this);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +76,7 @@ public class CardWizardOverlap extends AppCompatActivity {
 
         viewPager.setClipToPadding(false);
         viewPager.setPadding(0, 0, 0, 0);
-        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin_overlap));
+//        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin_overlap));
         viewPager.setOffscreenPageLimit(4);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -70,7 +86,7 @@ public class CardWizardOverlap extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (viewPager.getCurrentItem() == about_title_array.length - 1) {
-                    btnNext.setText("Get Started");
+                    btnNext.setText("Report");
                 } else {
                     btnNext.setText("Next");
                 }
@@ -95,31 +111,15 @@ public class CardWizardOverlap extends AppCompatActivity {
             }
         });
 
-        Tools.setSystemBarColor(this, R.color.grey_10);
-        Tools.setSystemBarLight(this);
+        initStatusBar();
+
     }
 
 
     private void bottomProgressDots(int current_index) {
-        LinearLayout dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        ImageView[] dots = new ImageView[MAX_STEP];
-
-        dotsLayout.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new ImageView(this);
-            int width_height = 15;
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(width_height, width_height));
-            params.setMargins(10, 10, 10, 10);
-            dots[i].setLayoutParams(params);
-            dots[i].setImageResource(R.drawable.shape_circle);
-            dots[i].setColorFilter(getResources().getColor(R.color.grey_20), PorterDuff.Mode.SRC_IN);
-            dotsLayout.addView(dots[i]);
-        }
-
-        if (dots.length > 0) {
-            dots[current_index].setImageResource(R.drawable.shape_circle);
-            dots[current_index].setColorFilter(getResources().getColor(R.color.light_green_600), PorterDuff.Mode.SRC_IN);
-        }
+        ProgressBar progressView = findViewById(R.id.progress_view);
+        progressView.setMax(MAX_STEP);
+        progressView.setProgress(current_index + 1);
     }
 
     //  viewpager change listener
@@ -150,14 +150,56 @@ public class CardWizardOverlap extends AppCompatActivity {
         public MyViewPagerAdapter() {
         }
 
+        private int dpToPx(int dp) {
+            float density = getResources().getDisplayMetrics().density;
+            return (int) (dp * density + 0.5f);
+        }
+
+
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_card_wizard, container, false);
-            ((TextView) view.findViewById(R.id.title)).setText(about_title_array[position]);
-            ((TextView) view.findViewById(R.id.description)).setText(about_description_array[position]);
-            ((ImageView) view.findViewById(R.id.image)).setImageResource(about_images_array[position]);
+            ((TextView) view.findViewById(R.id.instruction)).setText(about_title_array[position]);
+            ((TextView) view.findViewById(R.id.question)).setText(about_description_array[position]);
+
+            LinearLayoutCompat choiceContainer = view.findViewById(R.id.choices_container);
+            for (int i = 0; i < A[position].length; i++) {
+                AppCompatButton btn = new AppCompatButton(CardWizardOverlap.this);
+
+                // 设置按钮属性
+                btn.setLayoutParams(new LinearLayoutCompat.LayoutParams(
+                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT
+                ));
+                btn.setGravity(Gravity.CENTER);
+                btn.setTextColor(ContextCompat.getColor(CardWizardOverlap.this, R.color.grey_60));
+                btn.setAllCaps(false);
+                btn.setText(A[position][i]);
+
+                // 3. 将每个按钮添加到LinearLayoutCompat中
+                choiceContainer.addView(btn);
+            }
+
+//
+//            for (int i = 0; i < A[position].length; i++) {
+//
+//                LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        LinearLayout.LayoutParams.WRAP_CONTENT
+//                );
+//
+//                int marginInPx = dpToPx(10);
+//                params.setMargins(0, i == 0 ? 0 : marginInPx, 0, marginInPx); // 如果是第一个按钮则上边距为0，否则为10dp
+//
+//                Button button = new Button(CardWizardOverlap.this);
+//                button.setText(A[position][i]);
+//                button.setTextColor(getResources().getColor(R.color.button_test_color));
+//                button.setBackgroundColor(getResources().getColor(R.color.button_test_background_color));
+////                button.setBackgroundColor(getResources().getColor(R.color.button_test_background_color));
+//                choiceContainer.addView(button, params);
+//            }
 
             container.addView(view);
             return view;

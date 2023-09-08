@@ -77,7 +77,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/instruction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_medium"

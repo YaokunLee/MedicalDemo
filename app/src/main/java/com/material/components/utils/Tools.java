@@ -126,34 +126,34 @@ public class Tools {
 
     public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
         try {
-            Glide.with(ctx).load(drawable)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(img);
+//            Glide.with(ctx).load(drawable)
+//                    .crossFade()
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .into(img);
         } catch (Exception e) {
         }
     }
 
     public static void displayImageRound(final Context ctx, final ImageView img, @DrawableRes int drawable) {
-        try {
-            Glide.with(ctx).load(drawable).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(ctx.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    img.setImageDrawable(circularBitmapDrawable);
-                }
-            });
-        } catch (Exception e) {
-        }
+//        try {
+//            Glide.with(ctx).load(drawable).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+//                @Override
+//                protected void setResource(Bitmap resource) {
+//                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(ctx.getResources(), resource);
+//                    circularBitmapDrawable.setCircular(true);
+//                    img.setImageDrawable(circularBitmapDrawable);
+//                }
+//            });
+//        } catch (Exception e) {
+//        }
     }
 
     public static void displayImageOriginal(Context ctx, ImageView img, String url) {
         try {
-            Glide.with(ctx).load(url)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(img);
+//            Glide.with(ctx).load(url)
+//                    .crossFade()
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .into(img);
         } catch (Exception e) {
         }
     }

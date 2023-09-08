@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".activity.bottomsheet.BottomSheetMenu"
             android:screenOrientation="portrait" />
@@ -82,6 +83,7 @@
         <activity
             android:name=".activity.MainMenu"
             android:label="@string/app_name"
+            android:exported="true"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -89,6 +91,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.bottomnavigation.BottomNavigationBasic"
             android:screenOrientation="portrait" />
@@ -193,6 +196,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.menu.MenuDrawerNews"
+            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.menu.MenuDrawerMail"

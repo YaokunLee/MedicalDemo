@@ -49,7 +49,7 @@ public class AdapterGridShopProductCard extends RecyclerView.Adapter<RecyclerVie
         public OriginalViewHolder(View v) {
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
-            title = (TextView) v.findViewById(R.id.title);
+            title = (TextView) v.findViewById(R.id.instruction);
             price = (TextView) v.findViewById(R.id.price);
             more = (ImageButton) v.findViewById(R.id.more);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);

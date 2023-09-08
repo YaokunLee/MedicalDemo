@@ -43,7 +43,7 @@ public class AdapterListShopCategory extends RecyclerView.Adapter<RecyclerView.V
         public OriginalViewHolder(View v) {
             super(v);
             image = (ImageView) v.findViewById(R.id.image);
-            title = (TextView) v.findViewById(R.id.title);
+            title = (TextView) v.findViewById(R.id.instruction);
             brief = (TextView) v.findViewById(R.id.brief);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
         }

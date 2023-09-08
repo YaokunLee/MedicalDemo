@@ -3,68 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lyt_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_marginHorizontal="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/spacing_middle"
-        app:cardCornerRadius="3dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="2dp">
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="280dp"
-            android:layout_height="370dp">
+        <TextView
+            android:id="@+id/instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/grey_40"
+            android:textColorHint="#656566"
+            android:textSize="16dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:text="I feel that when I think or do things, I'm slower than usual."
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/question_color"
+            android:textSize="18dp" />
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="200dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginLeft="@dimen/spacing_xlarge"
-                    android:layout_marginRight="@dimen/spacing_xlarge"
-                    android:layout_weight="1"
-                    android:padding="@dimen/spacing_xlarge"
-                    android:src="@drawable/img_wizard_1"
-                    android:tint="@color/light_green_600" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/choices_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:text="Ready to Travel"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_80"
-                    android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/spacing_mxlarge"
-                    android:layout_marginRight="@dimen/spacing_mxlarge"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:layout_marginBottom="@dimen/spacing_xlarge"
-                    android:text="Find Featured and Premium \nItem From Our Store"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/grey_40" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>
+

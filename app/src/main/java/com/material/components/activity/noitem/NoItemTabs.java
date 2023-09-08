@@ -176,7 +176,7 @@ public class NoItemTabs extends AppCompatActivity {
 
             int position = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            TextView title = (TextView) rootView.findViewById(R.id.title);
+            TextView title = (TextView) rootView.findViewById(R.id.instruction);
             TextView brief = (TextView) rootView.findViewById(R.id.brief);
             ImageView image = (ImageView) rootView.findViewById(R.id.image);
             title.setText(title_array[position]);

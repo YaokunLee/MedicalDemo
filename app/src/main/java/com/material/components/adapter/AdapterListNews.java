@@ -51,7 +51,7 @@ public class AdapterListNews extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public OriginalViewHolder(View v) {
             super(v);
             image = v.findViewById(R.id.image);
-            title = v.findViewById(R.id.title);
+            title = v.findViewById(R.id.instruction);
             subtitle = v.findViewById(R.id.subtitle);
             date = v.findViewById(R.id.date);
             lyt_parent = v.findViewById(R.id.lyt_parent);

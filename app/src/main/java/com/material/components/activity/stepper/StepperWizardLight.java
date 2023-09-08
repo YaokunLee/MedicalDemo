@@ -153,7 +153,7 @@ public class StepperWizardLight extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_stepper_wizard, container, false);
-            ((TextView) view.findViewById(R.id.title)).setText(about_title_array[position]);
+            ((TextView) view.findViewById(R.id.instruction)).setText(about_title_array[position]);
             ((TextView) view.findViewById(R.id.description)).setText(about_description_array[position]);
             ((ImageView) view.findViewById(R.id.image)).setImageResource(about_images_array[position]);
             container.addView(view);

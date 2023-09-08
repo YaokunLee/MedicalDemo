@@ -86,7 +86,7 @@ public class DialogCustomDark extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        ((TextView) dialog.findViewById(R.id.title)).setText(p.name);
+        ((TextView) dialog.findViewById(R.id.instruction)).setText(p.name);
         ((CircleImageView) dialog.findViewById(R.id.image)).setImageResource(p.image);
 
         ((ImageButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {

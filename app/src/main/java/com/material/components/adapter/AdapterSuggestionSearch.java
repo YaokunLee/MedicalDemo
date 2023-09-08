@@ -32,7 +32,7 @@ public class AdapterSuggestionSearch extends RecyclerView.Adapter<AdapterSuggest
 
         public ViewHolder(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.title);
+            title = (TextView) v.findViewById(R.id.instruction);
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
         }
     }

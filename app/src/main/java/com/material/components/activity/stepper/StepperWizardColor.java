@@ -147,7 +147,7 @@ public class StepperWizardColor extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_stepper_wizard_color, container, false);
-            ((TextView) view.findViewById(R.id.title)).setText(title_array[position]);
+            ((TextView) view.findViewById(R.id.instruction)).setText(title_array[position]);
             ((TextView) view.findViewById(R.id.description)).setText(description_array[position]);
             ((ImageView) view.findViewById(R.id.image)).setImageResource(about_images_array[position]);
             ((RelativeLayout) view.findViewById(R.id.lyt_parent)).setBackgroundColor(getResources().getColor(color_array[position]));

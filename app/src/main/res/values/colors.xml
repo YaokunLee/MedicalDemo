@@ -318,6 +318,12 @@
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
 
+    <color name="progress_view_done">#F3D03F</color>
+    <color name="button_test_color">#949FA0</color>
+    <color name="button_test_background_color">#F2F3F3</color>
+    <color name="question_color">#29292A</color>
+    <color name="white">#FFFFFF</color>
+
 
     <!--for random color generator -->
     <array name="mdcolor_random">
