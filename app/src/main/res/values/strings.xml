@@ -18,5 +18,6 @@
     <string name="app_version">Version</string>
     <string name="default_notification_channel_id">Default</string>
     <string name="webview_loading">Load Content... </string>
+    <string name="setting_item_email_address">xnf483@alumni.ku.dk</string>
 
 </resources>

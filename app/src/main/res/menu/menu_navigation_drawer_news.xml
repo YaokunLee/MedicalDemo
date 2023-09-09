@@ -13,13 +13,13 @@
             android:icon="@drawable/ic_whatshot"
             android:title="Trending" />
         <item
-            android:id="@+id/nav_latest"
+            android:id="@+id/nav_report_time"
             android:icon="@drawable/ic_schedule"
-            android:title="Latest" />
+            android:title="report time" />
         <item
-            android:id="@+id/nav_highlight"
+            android:id="@+id/nav_report_frequency"
             android:icon="@drawable/ic_highlight"
-            android:title="Highlight" />
+            android:title="report frequency" />
     </group>
     <group
         android:id="@+id/grp_2"
@@ -29,7 +29,7 @@
             android:icon="@drawable/ic_settings"
             android:title="Settings" />
         <item
-            android:id="@+id/nav_help"
+            android:id="@+id/nav_contact_us"
             android:icon="@drawable/ic_help"
             android:title="Help" />
     </group>
