@@ -222,6 +222,11 @@ public class MenuDrawerNews extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData(true);
+    }
 
     private void dialogTimePickerLight() {
         Calendar cur_calender = Calendar.getInstance();
@@ -309,27 +314,28 @@ public class MenuDrawerNews extends AppCompatActivity {
 
         //模拟刷新，只插入一遍数据
         if (refresh) {
-            if (datas.size() == 0) {
-                datas.add(new DataVisualizationModel ("Heart Rate",  "83", "+12%" , null, R.drawable.image_1));
-                datas.add(new DataVisualizationModel ("Resting Heart Rate",  "72", "-5%" , null,  R.drawable.image_5));
-                datas.add(new DataVisualizationModel ("Distance",  "1.25km", "+126.4%" , new ArrayList<>(Arrays.asList(6245f, 5045f, 7543f, 9875f, 12348f, 7353f, 5000f)),   R.drawable.image_2));
-                datas.add(new DataVisualizationModel ("Move Minutes",  "53min", "+2%" , null, R.drawable.image_3));
-                datas.add(new DataVisualizationModel ("Speed",  "3.13km/h", "" , null, R.drawable.image_4));
-                datas.add(new DataVisualizationModel ("Steps",  "3057", "-52%" , new ArrayList<>(Arrays.asList(1245f, 8045f, 7543f, 9875f, 2348f, 2353f, 13000f)), R.drawable.image_6));
-                datas.add(new DataVisualizationModel ("Blood Pressure",  "83", "+12%" , null, R.drawable.image_7));
-                datas.add(new DataVisualizationModel ("Blood glucose",  "83", "" , null, R.drawable.image_8));
+            datas = new ArrayList<>();
 
-                SelfAssessmentHealthData selfAssessmentHealthData = HealthDataManager.getInstance().getSelfAssessmentHealthData();
+            datas.add(new DataVisualizationModel ("Heart Rate",  "83", "+12%" , null, R.drawable.image_1));
+            datas.add(new DataVisualizationModel ("Resting Heart Rate",  "72", "-5%" , null,  R.drawable.image_5));
+            datas.add(new DataVisualizationModel ("Distance",  "1.25km", "+126.4%" , new ArrayList<>(Arrays.asList(6245f, 5045f, 7543f, 9875f, 12348f, 7353f, 5000f)),   R.drawable.image_2));
+            datas.add(new DataVisualizationModel ("Move Minutes",  "53min", "+2%" , null, R.drawable.image_3));
+            datas.add(new DataVisualizationModel ("Speed",  "3.13km/h", "" , null, R.drawable.image_4));
+            datas.add(new DataVisualizationModel ("Steps",  "3057", "-52%" , new ArrayList<>(Arrays.asList(1245f, 8045f, 7543f, 9875f, 2348f, 2353f, 13000f)), R.drawable.image_6));
+            datas.add(new DataVisualizationModel ("Blood Pressure",  "83", "+12%" , null, R.drawable.image_7));
+            datas.add(new DataVisualizationModel ("Blood glucose",  "83", "" , null, R.drawable.image_8));
 
-                datas.add(new DataVisualizationModel ("Self-assessment - Sleep",  "Score:" + selfAssessmentHealthData.getSleepScore(), "" , null, R.drawable.image_9));
-                datas.add(new DataVisualizationModel ("Self-assessment - Appetite",  "Score:" + selfAssessmentHealthData.getAppetiteScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - emotion",  "Score:" + selfAssessmentHealthData.getEmotionScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - cognition",  "Score:" +selfAssessmentHealthData.getCognitionScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - activity",  "Score:" + selfAssessmentHealthData.getActivityScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - self worth",  "Score:" + selfAssessmentHealthData.getSelfWorthScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - interpersonal relations",  "Score:" + selfAssessmentHealthData.getInterpersonalRelationScore(), "" , null, R.drawable.image_10));
-                datas.add(new DataVisualizationModel ("Self-assessment - life attitude",  "Score:" + selfAssessmentHealthData.getLifeAttitudeScore(), "" , null, R.drawable.image_10));
-            }
+            SelfAssessmentHealthData selfAssessmentHealthData = HealthDataManager.getInstance().getSelfAssessmentHealthData();
+
+            datas.add(new DataVisualizationModel ("Self-assessment - Sleep",  "Score:" + selfAssessmentHealthData.getSleepScore(), "" , null, R.drawable.image_9));
+            datas.add(new DataVisualizationModel ("Self-assessment - Appetite",  "Score:" + selfAssessmentHealthData.getAppetiteScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - emotion",  "Score:" + selfAssessmentHealthData.getEmotionScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - cognition",  "Score:" +selfAssessmentHealthData.getCognitionScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - activity",  "Score:" + selfAssessmentHealthData.getActivityScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - self worth",  "Score:" + selfAssessmentHealthData.getSelfWorthScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - interpersonal relations",  "Score:" + selfAssessmentHealthData.getInterpersonalRelationScore(), "" , null, R.drawable.image_10));
+            datas.add(new DataVisualizationModel ("Self-assessment - life attitude",  "Score:" + selfAssessmentHealthData.getLifeAttitudeScore(), "" , null, R.drawable.image_10));
+
             staggedAdapter.refresh(datas);
         }
     }
