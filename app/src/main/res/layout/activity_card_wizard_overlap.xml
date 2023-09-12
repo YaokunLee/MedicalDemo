@@ -16,7 +16,7 @@
         android:progressTint="@color/progress_view_done" />
 
 
-    <androidx.viewpager.widget.ViewPager
+    <com.material.components.mine.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

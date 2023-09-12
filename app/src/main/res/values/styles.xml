@@ -265,4 +265,13 @@
         <item name="android:minHeight">48dp</item>
     </style>
 
+
+
+    <style name="Widget.MaterialComponents.Button.TextButton.OnBoardTextButton"
+        parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">#6c63ff</item>
+    </style>
+
+
+
 </resources>

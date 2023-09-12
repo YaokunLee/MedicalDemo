@@ -5,6 +5,9 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
+import com.chunxia.mmkv.KVUtils;
+import com.material.components.mine.MyNotificationManager;
+
 public class ThisApplication extends Application {
 
     @Override
@@ -16,6 +19,11 @@ public class ThisApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        MyNotificationManager.getInstance().createNotificationChannel(this);
+        MyNotificationManager.getInstance().initNotification(this);
+
+        KVUtils.get().init(this);
     }
 
 }

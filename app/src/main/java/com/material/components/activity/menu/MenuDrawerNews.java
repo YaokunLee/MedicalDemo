@@ -1,15 +1,20 @@
 package com.material.components.activity.menu;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,16 +30,25 @@ import com.atech.staggedrv.GridItemDecoration;
 import com.atech.staggedrv.StaggerdRecyclerView;
 import com.atech.staggedrv.callbacks.LoadMoreAndRefresh;
 import com.atech.staggedrv.model.StaggedModel;
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.material.components.R;
 import com.material.components.activity.card.CardWizardOverlap;
+import com.material.components.mine.CustomBarChartView;
 import com.material.components.mine.DataVisualizationModel;
+import com.material.components.mine.NotificationReceiver;
+import com.material.components.mine.healthdata.HealthDataManager;
+import com.material.components.mine.healthdata.SelfAssessmentHealthData;
+import com.material.components.mine.login.GoogleAccountData;
+import com.material.components.mine.login.GoogleSignInManager;
 import com.material.components.utils.Tools;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -56,6 +70,11 @@ public class MenuDrawerNews extends AppCompatActivity {
         initNavigationMenu();
         initFloatButton();
         initRecyclerView();
+        initDrawerHeader();
+    }
+
+    private void initDrawerHeader() {
+
     }
 
 
@@ -125,6 +144,18 @@ public class MenuDrawerNews extends AppCompatActivity {
     private void initNavigationMenu() {
         NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        View headerView = nav_view.getHeaderView(0);
+
+        TextView nameView = headerView.findViewById(R.id.google_account_name);
+        TextView emailView = headerView.findViewById(R.id.email);
+        CircularImageView imageView = headerView.findViewById(R.id.avatar);
+
+        GoogleAccountData data = GoogleSignInManager.getInstance().getGoogleAccountData();
+        nameView.setText(data.getDisplayName());
+        emailView.setText(data.getAccountId());
+
+        Glide.with(this).load(data.getProfilePictureUri()).into(imageView);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -218,7 +249,7 @@ public class MenuDrawerNews extends AppCompatActivity {
         @Override
         public RecyclerView.ViewHolder addViewHolder(ViewGroup viewGroup, int i) {
             //绑定自定义的viewholder
-            View v = LayoutInflater.from(MenuDrawerNews.this).inflate(R.layout.custom_item_layout, viewGroup, false);
+            View v = LayoutInflater.from(MenuDrawerNews.this).inflate(R.layout.custom_item_layout2, viewGroup, false);
             return new MyHolder(v);
         }
 
@@ -235,9 +266,14 @@ public class MenuDrawerNews extends AppCompatActivity {
                 myHolder.changeView.setText(change);
             }
 
+            ArrayList<Float> scores = ((DataVisualizationModel) datas.get(i)).getScores();
+            if (scores != null) {
+                myHolder.barChartView.setScores(scores);
+                myHolder.barChartView.setVisibility(View.VISIBLE);
+            } else {
+                myHolder.barChartView.setVisibility(View.GONE);
+            }
         }
-
-
     }
 
 
@@ -250,12 +286,15 @@ public class MenuDrawerNews extends AppCompatActivity {
         TextView valueView;
         TextView changeView;
 
+        CustomBarChartView barChartView;
+
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.indicator_name_view);
             valueView = itemView.findViewById(R.id.indicator_value_view);
             changeView = itemView.findViewById(R.id.indicator_change_view);
+            barChartView = itemView.findViewById(R.id.bar_chart_view);
         }
     }
 
@@ -271,17 +310,25 @@ public class MenuDrawerNews extends AppCompatActivity {
         //模拟刷新，只插入一遍数据
         if (refresh) {
             if (datas.size() == 0) {
-                datas.add(new DataVisualizationModel ("Heart Rate",  "83", "+12%" , R.drawable.image_1));
-                datas.add(new DataVisualizationModel ("Resting Heart Rate",  "72", "-5%" , R.drawable.image_5));
-                datas.add(new DataVisualizationModel ("Distance",  "1.25km", "+126.4%" , R.drawable.image_2));
-                datas.add(new DataVisualizationModel ("Move Minutes",  "53min", "+2%" , R.drawable.image_3));
-                datas.add(new DataVisualizationModel ("Speed",  "3.13km/h", "" , R.drawable.image_4));
-                datas.add(new DataVisualizationModel ("Steps",  "3057", "-52%" , R.drawable.image_6));
-                datas.add(new DataVisualizationModel ("Blood Pressure",  "83", "+12%" , R.drawable.image_7));
-                datas.add(new DataVisualizationModel ("Blood glucose",  "83", "" , R.drawable.image_8));
-                datas.add(new DataVisualizationModel ("Self-assessment - Sleep",  "Good(4)", "2.6" , R.drawable.image_9));
-                datas.add(new DataVisualizationModel ("Self-assessment - Appetite",  "Normal(3)", "3.5" , R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Heart Rate",  "83", "+12%" , null, R.drawable.image_1));
+                datas.add(new DataVisualizationModel ("Resting Heart Rate",  "72", "-5%" , null,  R.drawable.image_5));
+                datas.add(new DataVisualizationModel ("Distance",  "1.25km", "+126.4%" , new ArrayList<>(Arrays.asList(6245f, 5045f, 7543f, 9875f, 12348f, 7353f, 5000f)),   R.drawable.image_2));
+                datas.add(new DataVisualizationModel ("Move Minutes",  "53min", "+2%" , null, R.drawable.image_3));
+                datas.add(new DataVisualizationModel ("Speed",  "3.13km/h", "" , null, R.drawable.image_4));
+                datas.add(new DataVisualizationModel ("Steps",  "3057", "-52%" , new ArrayList<>(Arrays.asList(1245f, 8045f, 7543f, 9875f, 2348f, 2353f, 13000f)), R.drawable.image_6));
+                datas.add(new DataVisualizationModel ("Blood Pressure",  "83", "+12%" , null, R.drawable.image_7));
+                datas.add(new DataVisualizationModel ("Blood glucose",  "83", "" , null, R.drawable.image_8));
 
+                SelfAssessmentHealthData selfAssessmentHealthData = HealthDataManager.getInstance().getSelfAssessmentHealthData();
+
+                datas.add(new DataVisualizationModel ("Self-assessment - Sleep",  "Score:" + selfAssessmentHealthData.getSleepScore(), "" , null, R.drawable.image_9));
+                datas.add(new DataVisualizationModel ("Self-assessment - Appetite",  "Score:" + selfAssessmentHealthData.getAppetiteScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - emotion",  "Score:" + selfAssessmentHealthData.getEmotionScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - cognition",  "Score:" +selfAssessmentHealthData.getCognitionScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - activity",  "Score:" + selfAssessmentHealthData.getActivityScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - self worth",  "Score:" + selfAssessmentHealthData.getSelfWorthScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - interpersonal relations",  "Score:" + selfAssessmentHealthData.getInterpersonalRelationScore(), "" , null, R.drawable.image_10));
+                datas.add(new DataVisualizationModel ("Self-assessment - life attitude",  "Score:" + selfAssessmentHealthData.getLifeAttitudeScore(), "" , null, R.drawable.image_10));
             }
             staggedAdapter.refresh(datas);
         }

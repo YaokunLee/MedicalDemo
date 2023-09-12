@@ -323,7 +323,7 @@
     <color name="button_test_background_color">#F2F3F3</color>
     <color name="question_color">#29292A</color>
     <color name="white">#FFFFFF</color>
-
+<color name="login_bg">#FEF8F3</color>
 
     <!--for random color generator -->
     <array name="mdcolor_random">

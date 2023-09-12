@@ -1,57 +1,68 @@
 package com.material.components.activity.card;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.material.components.R;
+import com.material.components.mine.CustomViewPager;
+import com.material.components.mine.healthdata.HealthDataManager;
+import com.material.components.mine.healthdata.SelfAssessmentHealthData;
+import com.material.components.mine.healthdata.SurveyQuestionData;
+import com.material.components.mine.healthdata.SurveyQuestionProvider;
 import com.material.components.utils.Tools;
-import com.material.components.view.ProgressView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CardWizardOverlap extends AppCompatActivity {
 
-    private static final int MAX_STEP = 4;
+    private static final int MAX_STEP = 16;
 
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private Button btnNext;
     private MyViewPagerAdapter myViewPagerAdapter;
-    private String about_title_array[] = {
-            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
-            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
-            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:",
-            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:"
-    };
-    private String about_description_array[] = {
-            "I didn't sleep well.",
-            "I don't feel like eating anything.",
-            "I feel physically fatigued and weak, with no energy or strength.",
-            "I often feel like crying.",
-    };
 
-    static String[] B = {"1 - strongly disagree", "2", "3", "4", "5 - strongly agree"};
+    private String hint =
+            "On a scale of 1-5, with 5 being strongly agree and 1 being strongly disagree:";
 
-    // 假设你想要A数组包含3个B数组的元素
-    static String[][] A = {B, B, B, B};
+    private ArrayList<SurveyQuestionData> surveyQuestionDataArrayList = new ArrayList<>();
 
+
+    String[] rate = {"1 - strongly disagree", "2", "3", "4", "5 - strongly agree"};
+    private final Map<String, Integer> rateMap = getRatingMap();
+
+    public Map<String, Integer> getRatingMap() {
+        Map<String, Integer> ratingMap = new HashMap<>();
+
+        for (String rating : rate) {
+            if (rating.contains("1")) {
+                ratingMap.put(rating, 1);
+            } else if (rating.contains("2")) {
+                ratingMap.put(rating, 2);
+            } else if (rating.contains("3")) {
+                ratingMap.put(rating, 3);
+            } else if (rating.contains("4")) {
+                ratingMap.put(rating, 4);
+            } else if (rating.contains("5")) {
+                ratingMap.put(rating, 5);
+            }
+        }
+
+        return ratingMap;
+    }
 
     private void initStatusBar() {
         Tools.setSystemBarColor(this, R.color.white);
@@ -64,7 +75,9 @@ public class CardWizardOverlap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_wizard_overlap);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        setFinalQuestions();
+
+        viewPager = (CustomViewPager) findViewById(R.id.view_pager);
         btnNext = (Button) findViewById(R.id.btn_next);
 
         // adding bottom dots
@@ -78,24 +91,6 @@ public class CardWizardOverlap extends AppCompatActivity {
         viewPager.setPadding(0, 0, 0, 0);
 //        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin_overlap));
         viewPager.setOffscreenPageLimit(4);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (viewPager.getCurrentItem() == about_title_array.length - 1) {
-                    btnNext.setText("Report");
-                } else {
-                    btnNext.setText("Next");
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
 
 
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -104,15 +99,29 @@ public class CardWizardOverlap extends AppCompatActivity {
                 int current = viewPager.getCurrentItem() + 1;
                 if (current < MAX_STEP) {
                     // move to next screen
-                    viewPager.setCurrentItem(current);
+                    if (surveyQuestionDataArrayList.get(viewPager.getCurrentItem()).isAnswered()) {
+                        viewPager.setCurrentItem(current);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Please answer the question", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
+                    HealthDataManager.getInstance().setSelfAssessmentHealthData(getFinalScore());
                     finish();
                 }
             }
         });
 
         initStatusBar();
+    }
 
+
+    private SelfAssessmentHealthData getFinalScore() {
+        return HealthDataManager.calculateAverageScores(surveyQuestionDataArrayList);
+    }
+
+    private void setFinalQuestions() {
+        surveyQuestionDataArrayList = SurveyQuestionProvider.getSampleQuestions();
     }
 
 
@@ -122,16 +131,36 @@ public class CardWizardOverlap extends AppCompatActivity {
         progressView.setProgress(current_index + 1);
     }
 
+    private int maxIndex = -1;
+
+
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(final int position) {
             bottomProgressDots(position);
+
+            if (maxIndex > position) {
+                viewPager.setCanSwipeToLeft(true);
+            } else if (maxIndex == position && isCurrentAnswered()) {
+                viewPager.setCanSwipeToLeft(true);
+            } else if (maxIndex == position && !isCurrentAnswered()) {
+                viewPager.setCanSwipeToLeft(false);
+            } else {
+                viewPager.setCanSwipeToLeft(false);
+            }
+
+            maxIndex = Math.max(maxIndex, position);
         }
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
+            if (viewPager.getCurrentItem() == surveyQuestionDataArrayList.size() - 1) {
+                btnNext.setText("Report");
+            } else {
+                btnNext.setText("Next");
+            }
 
         }
 
@@ -140,6 +169,16 @@ public class CardWizardOverlap extends AppCompatActivity {
 
         }
     };
+
+
+    private boolean isCurrentAnswered() {
+        return surveyQuestionDataArrayList.get(viewPager.getCurrentItem()).isAnswered();
+    }
+
+
+    private void setCurrentAnswer(int score) {
+        surveyQuestionDataArrayList.get(viewPager.getCurrentItem()).setScore(score);
+    }
 
     /**
      * View pager adapter
@@ -150,56 +189,112 @@ public class CardWizardOverlap extends AppCompatActivity {
         public MyViewPagerAdapter() {
         }
 
-        private int dpToPx(int dp) {
-            float density = getResources().getDisplayMetrics().density;
-            return (int) (dp * density + 0.5f);
-        }
-
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_card_wizard, container, false);
-            ((TextView) view.findViewById(R.id.instruction)).setText(about_title_array[position]);
-            ((TextView) view.findViewById(R.id.question)).setText(about_description_array[position]);
+            ((TextView) view.findViewById(R.id.instruction)).setText(hint);
+            ((TextView) view.findViewById(R.id.question)).setText(surveyQuestionDataArrayList.get(position).getQuestion());
 
-            LinearLayoutCompat choiceContainer = view.findViewById(R.id.choices_container);
-            for (int i = 0; i < A[position].length; i++) {
-                AppCompatButton btn = new AppCompatButton(CardWizardOverlap.this);
+            Button button1 = (Button) view.findViewById(R.id.btn_choice1);
+            Button button2 = (Button) view.findViewById(R.id.btn_choice2);
+            Button button3 = (Button) view.findViewById(R.id.btn_choice3);
 
-                // 设置按钮属性
-                btn.setLayoutParams(new LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT
-                ));
-                btn.setGravity(Gravity.CENTER);
-                btn.setTextColor(ContextCompat.getColor(CardWizardOverlap.this, R.color.grey_60));
-                btn.setAllCaps(false);
-                btn.setText(A[position][i]);
+            Button button4 = (Button) view.findViewById(R.id.btn_choice4);
+            Button button5 = (Button) view.findViewById(R.id.btn_choice5);
 
-                // 3. 将每个按钮添加到LinearLayoutCompat中
-                choiceContainer.addView(btn);
+            if (surveyQuestionDataArrayList.get(position).isAnswered()) {
+                int score = surveyQuestionDataArrayList.get(position).getScore();
+                switch (score) {
+                    case 1:
+                        button1.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                        break;
+                    case 2:
+                        button2.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                        break;
+                    case 3:
+                        button3.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                        break;
+                    case 4:
+                        button4.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                        break;
+                    case 5:
+                        button5.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                        break;
+                }
             }
 
-//
-//            for (int i = 0; i < A[position].length; i++) {
-//
-//                LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(
-//                        LinearLayout.LayoutParams.MATCH_PARENT,
-//                        LinearLayout.LayoutParams.WRAP_CONTENT
-//                );
-//
-//                int marginInPx = dpToPx(10);
-//                params.setMargins(0, i == 0 ? 0 : marginInPx, 0, marginInPx); // 如果是第一个按钮则上边距为0，否则为10dp
-//
-//                Button button = new Button(CardWizardOverlap.this);
-//                button.setText(A[position][i]);
-//                button.setTextColor(getResources().getColor(R.color.button_test_color));
-//                button.setBackgroundColor(getResources().getColor(R.color.button_test_background_color));
-////                button.setBackgroundColor(getResources().getColor(R.color.button_test_background_color));
-//                choiceContainer.addView(button, params);
-//            }
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setCurrentAnswer(1);
+                    viewPager.setCanSwipeToLeft(true);
+                    button1.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                    button2.setBackgroundResource(R.drawable.option_button_bg);
+                    button3.setBackgroundResource(R.drawable.option_button_bg);
+                    button4.setBackgroundResource(R.drawable.option_button_bg);
+                    button5.setBackgroundResource(R.drawable.option_button_bg);
+                }
+            });
+
+
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setCurrentAnswer(2);
+                    viewPager.setCanSwipeToLeft(true);
+                    button2.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                    button1.setBackgroundResource(R.drawable.option_button_bg);
+                    button3.setBackgroundResource(R.drawable.option_button_bg);
+                    button4.setBackgroundResource(R.drawable.option_button_bg);
+                    button5.setBackgroundResource(R.drawable.option_button_bg);
+                }
+            });
+
+
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setCurrentAnswer(3);
+                    viewPager.setCanSwipeToLeft(true);
+                    button3.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                    button2.setBackgroundResource(R.drawable.option_button_bg);
+                    button1.setBackgroundResource(R.drawable.option_button_bg);
+                    button4.setBackgroundResource(R.drawable.option_button_bg);
+                    button5.setBackgroundResource(R.drawable.option_button_bg);
+                }
+            });
+
+
+            button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setCurrentAnswer(4);
+                    viewPager.setCanSwipeToLeft(true);
+                    button4.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                    button2.setBackgroundResource(R.drawable.option_button_bg);
+                    button3.setBackgroundResource(R.drawable.option_button_bg);
+                    button1.setBackgroundResource(R.drawable.option_button_bg);
+                    button5.setBackgroundResource(R.drawable.option_button_bg);
+                }
+            });
+
+
+            button5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setCurrentAnswer(5);
+                    viewPager.setCanSwipeToLeft(true);
+                    button5.setBackgroundResource(R.drawable.option_button_bg_choosed);
+                    button2.setBackgroundResource(R.drawable.option_button_bg);
+                    button3.setBackgroundResource(R.drawable.option_button_bg);
+                    button4.setBackgroundResource(R.drawable.option_button_bg);
+                    button1.setBackgroundResource(R.drawable.option_button_bg);
+                }
+            });
+
 
             container.addView(view);
             return view;
@@ -207,7 +302,7 @@ public class CardWizardOverlap extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return about_title_array.length;
+            return surveyQuestionDataArrayList.size();
         }
 
         @Override

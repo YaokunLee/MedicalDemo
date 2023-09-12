@@ -40,6 +40,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btn_choice1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/option_button_bg"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="1 - strongly disagree"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
+            <Button
+                android:id="@+id/btn_choice2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/option_button_bg"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="2"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
+
+            <Button
+                android:id="@+id/btn_choice3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/option_button_bg"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="3"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
+
+            <Button
+                android:id="@+id/btn_choice4"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/option_button_bg"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="4"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
+
+            <Button
+                android:id="@+id/btn_choice5"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/option_button_bg"
+                android:gravity="center"
+                android:text="5 - strongly agree"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </LinearLayout>

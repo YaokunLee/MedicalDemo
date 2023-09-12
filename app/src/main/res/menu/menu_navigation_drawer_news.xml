@@ -9,29 +9,29 @@
             android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
-            android:id="@+id/nav_trending"
+            android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_whatshot"
-            android:title="Trending" />
+            android:title="Privacy" />
         <item
             android:id="@+id/nav_report_time"
             android:icon="@drawable/ic_schedule"
-            android:title="report time" />
+            android:title="Report time" />
         <item
             android:id="@+id/nav_report_frequency"
             android:icon="@drawable/ic_highlight"
-            android:title="report frequency" />
+            android:title="Report frequency" />
     </group>
     <group
         android:id="@+id/grp_2"
         android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="Log out" />
         <item
             android:id="@+id/nav_contact_us"
             android:icon="@drawable/ic_help"
-            android:title="Help" />
+            android:title="Contact us" />
     </group>
 
 </menu>
