@@ -68,7 +68,7 @@ import com.material.components.activity.card.CardOverlap;
 import com.material.components.activity.card.CardTimeline;
 import com.material.components.activity.card.CardWizard;
 import com.material.components.activity.card.CardWizardLight;
-import com.material.components.activity.card.CardWizardOverlap;
+import com.material.components.activity.card.SurveyActivity;
 import com.material.components.activity.chat.ChatBBM;
 import com.material.components.activity.chat.ChatFacebook;
 import com.material.components.activity.chat.ChatTelegram;
@@ -153,7 +153,7 @@ import com.material.components.activity.menu.MenuDrawerAdminDark;
 import com.material.components.activity.menu.MenuDrawerAgri;
 import com.material.components.activity.menu.MenuDrawerFilter;
 import com.material.components.activity.menu.MenuDrawerMail;
-import com.material.components.activity.menu.MenuDrawerNews;
+import com.material.components.activity.menu.DataVisualizationActivity;
 import com.material.components.activity.menu.MenuDrawerNoIcon;
 import com.material.components.activity.menu.MenuDrawerSimpleDark;
 import com.material.components.activity.menu.MenuDrawerSimpleLight;
@@ -480,7 +480,7 @@ public class MainMenu extends AppCompatActivity {
         items.add(new Item(403, crd.Text, "Overlap", MnType.SUB, CardOverlap.class));
         items.add(new Item(404, crd.Text, "Wizard", MnType.SUB, CardWizard.class));
         items.add(new Item(405, crd.Text, "Wizard Light", MnType.SUB, CardWizardLight.class));
-        items.add(new Item(406, crd.Text, "Wizard Overlap", MnType.SUB, CardWizardOverlap.class));
+        items.add(new Item(406, crd.Text, "Wizard Overlap", MnType.SUB, SurveyActivity.class));
         items.add(new Item(407, crd.Text, "Checkable", true, MnType.SUB, CardCheckable.class));
 
         Item chp = new Item(500, "Chips", R.drawable.ic_label, MnType.HEAD);
@@ -538,7 +538,7 @@ public class MainMenu extends AppCompatActivity {
 
         Item mn = new Item(2000, "Menu", R.drawable.ic_reoder, MnType.HEAD);
         items.add(mn);
-        items.add(new Item(2001, mn.Text, "Drawer News", MnType.SUB, MenuDrawerNews.class));
+        items.add(new Item(2001, mn.Text, "Drawer News", MnType.SUB, DataVisualizationActivity.class));
         items.add(new Item(2002, mn.Text, "Drawer Mail", MnType.SUB, MenuDrawerMail.class));
         items.add(new Item(2003, mn.Text, "Drawer Simple Light", MnType.SUB, MenuDrawerSimpleLight.class));
         items.add(new Item(2004, mn.Text, "Drawer Simple Dark", MnType.SUB, MenuDrawerSimpleDark.class));

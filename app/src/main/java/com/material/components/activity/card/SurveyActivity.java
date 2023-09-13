@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CardWizardOverlap extends AppCompatActivity {
+public class SurveyActivity extends AppCompatActivity {
 
     private static final int MAX_STEP = 16;
 

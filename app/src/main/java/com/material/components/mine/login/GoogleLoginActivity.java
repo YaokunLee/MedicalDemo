@@ -13,7 +13,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.material.components.R;
-import com.material.components.activity.menu.MenuDrawerNews;
+import com.material.components.activity.menu.DataVisualizationActivity;
 import com.material.components.utils.Tools;
 
 public class GoogleLoginActivity extends AppCompatActivity {
@@ -36,7 +36,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
         GoogleSignInManager.getInstance().initLoginButton(loginButton, this, new GoogleSignInManager.OnLoginResult() {
             @Override
             public void onSuccess(SignInCredential credential) {
-                startActivity(new Intent(GoogleLoginActivity.this, MenuDrawerNews.class));
+                startActivity(new Intent(GoogleLoginActivity.this, DataVisualizationActivity.class));
                 finish();
             }
 

@@ -212,7 +212,7 @@
             android:name=".activity.list.ListAnimation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.menu.MenuDrawerNews"
+            android:name=".activity.menu.DataVisualizationActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -399,7 +399,7 @@
             android:name=".activity.bottomnavigation.BottomNavigationIcon"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.card.CardWizardOverlap"
+            android:name=".activity.card.SurveyActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.profile.ProfilePolygon"
