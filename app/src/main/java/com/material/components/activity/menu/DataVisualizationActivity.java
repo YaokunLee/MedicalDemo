@@ -158,10 +158,12 @@ public class DataVisualizationActivity extends AppCompatActivity {
         CircularImageView imageView = headerView.findViewById(R.id.avatar);
 
         GoogleAccountData data = GoogleSignInManager.getInstance().getGoogleAccountData();
-        nameView.setText(data.getDisplayName());
-        emailView.setText(data.getAccountId());
+        if (data != null) {
+            nameView.setText(data.getDisplayName());
+            emailView.setText(data.getAccountId());
+            Glide.with(this).load(data.getProfilePictureUri()).into(imageView);
+        }
 
-        Glide.with(this).load(data.getProfilePictureUri()).into(imageView);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             public void onDrawerOpened(View drawerView) {

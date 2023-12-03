@@ -25,11 +25,18 @@ public class GoogleLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_google);
 
+        initSkipButton();
         initLoginButton();
         initStatusBar();
         setWelcomeText();
     }
 
+    private void initSkipButton() {
+        findViewById(R.id.skipBtn).setOnClickListener(v -> {
+            startActivity(new Intent(GoogleLoginActivity.this, DataVisualizationActivity.class));
+            finish();
+        });
+    }
 
     private void initLoginButton() {
         loginButton = findViewById(R.id.google_login_btn_layout);
