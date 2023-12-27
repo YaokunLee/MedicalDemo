@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyC3SrcUtXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        AIzaSyATVA6GSh_BDrzQy_QteBYw87MVztmuuBs
     </string>
 
     <string name="step_of">Step %1$d of %2$d</string>
@@ -19,5 +19,16 @@
     <string name="default_notification_channel_id">Default</string>
     <string name="webview_loading">Load Content... </string>
     <string name="setting_item_email_address">xnf483@alumni.ku.dk</string>
+    <string name="login_privacy_policy">By continuing, I agree to the <a href="https://github.com/LiYaokun97/health_app_privacy/blob/master/privacy.md">Privacy-Policy</a></string>
+
+    <string name="if_home">&#xe8c6;</string>
+    <string name="if_recommend">&#xe63f;</string>
+    <string name="if_chat">&#xe63c;</string>
+    <string name="if_profile">&#xe634;</string>
+    <string name="if_category">&#xf00a6;</string>
+    <string name="if_favorite">&#xe639;</string>
+    <string name="if_favorite1">&#xe620;</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

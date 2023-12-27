@@ -8,13 +8,11 @@
 
     <string name="short_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
 
-    <string name="middle_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin</string>
+    <string name="middle_lorem_ipsum">You can reduce the dosage of medication A from 3 times a day, 2 pills each time, to 3 times a day, 1 pill each time.</string>
     <string name="medium_lorem_ipsum">Quisque imperdiet nunc at massa dictum volutpat. Etiam id orci ipsum. Integer id ex dignissim</string>
 
     <string name="long_lorem_ipsum">
-        Duis tellus metus, elementum a lectus id, aliquet interdum mauris. Nam bibendum efficitur sollicitudin. Proin eleifend libero velit, nec fringilla dolor finibus quis. nMorbi eu libero pellentesque, rutrum metus quis, blandit est. Fusce bibendum accumsan nisi vulputate feugiat. In fermentum laoreet euismod. Praesent sem nisl, facilisis eget odio at, rhoncus scelerisque ipsum. Nulla orci dui, dignissim a risus ut, lobortis porttitor velit.
-        \n\nNulla id lectus metus. Maecenas a lorem in odio auctor facilisis non vitae nunc. Sed malesuada volutpat massa. Praesent sit amet lacinia augue, mollis tempor dolor.
-    </string>
+        We are a dedicated medical and computer science research team from the University of Copenhagen, united by a shared mission to tackle the complexities and challenges of depression. Our multidisciplinary approach combines the latest advancements in medical research with cutting-edge computational techniques to deepen our understanding of depression and enhance treatment strategies.    </string>
 
     <string name="long_lorem_ipsum_2">
         Vivamus porttitor, erat at aliquam mollis, risus ligula suscipit metus, id semper nisi dui lacinia leo. Praesent at feugiat sem. Vivamus consectetur arcu sit amet metus efficitur dapibus. Sed metus ligula, efficitur quis finibus nec, pellentesque nec nulla. Nunc nec magna iaculis turpis vehicula condimentum id lobortis lectus.
@@ -46,8 +44,7 @@
     </string>
 
     <string name="gdpr_privacy_policy">
-        By using this App, you agree to the <a href="http://dream-space.web.id/">Terms-Conditions</a>,
-        <a href="http://dream-space.web.id/">Cookies-Policy</a> and <a href="http://dream-space.web.id/">Privacy-Policy</a>
+        By using this App, you agree to the <a href="https://github.com/LiYaokun97/health_app_privacy/blob/master/privacy.md">Privacy-Policy</a>
         and consent to having your personal data, behavior transferred and processed outside EU.
     </string>
 

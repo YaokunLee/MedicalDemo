@@ -5,10 +5,6 @@
         android:id="@+id/grp_1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
-            android:title="Home" />
-        <item
             android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_whatshot"
             android:title="Privacy" />
@@ -21,6 +17,7 @@
             android:icon="@drawable/ic_highlight"
             android:title="Report frequency" />
     </group>
+
     <group
         android:id="@+id/grp_2"
         android:checkableBehavior="none">
@@ -28,6 +25,29 @@
             android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_settings"
             android:title="Log out" />
+<!--        <item-->
+<!--            android:id="@+id/nav_delete_data"-->
+<!--            android:icon="@drawable/ic_delete"-->
+<!--            android:title="Delete data" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_delete_account"-->
+<!--            android:icon="@drawable/ic_delete"-->
+<!--            android:title="Delete account" />-->
+        <item
+            android:id="@+id/nav_privacy_settng"
+            android:icon="@drawable/ic_send"
+            android:title="Privacy setting" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_account_balance"
+            android:title="About us" />
+
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/ic_account_balance"
+            android:title="Language" />
+
         <item
             android:id="@+id/nav_contact_us"
             android:icon="@drawable/ic_help"

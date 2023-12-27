@@ -62,11 +62,12 @@ public class AboutCompanyImage extends AppCompatActivity {
 
     private void initMapFragment() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = Tools.configActivityMaps(googleMap);
-                MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(37.7610237, -122.4217785));
+                MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(55.69469, 12.56208));
                 mMap.addMarker(markerOptions);
                 mMap.moveCamera(zoomingLocation());
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -84,6 +85,6 @@ public class AboutCompanyImage extends AppCompatActivity {
     }
 
     private CameraUpdate zoomingLocation() {
-        return CameraUpdateFactory.newLatLngZoom(new LatLng(37.76496792, -122.42206407), 13);
+        return CameraUpdateFactory.newLatLngZoom(new LatLng(55.69469, 12.56208), 13);
     }
 }

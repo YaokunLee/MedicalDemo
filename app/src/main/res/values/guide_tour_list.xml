@@ -1,0 +1,15 @@
+<resources>
+    <!-- Titles -->
+    <string-array name="about_title_array">
+        <item>Track Your Health Data</item>
+        <item>Complete the Depression Assessment</item>
+        <item>Manage Your Medication Intake</item>
+    </string-array>
+
+    <!-- Descriptions -->
+    <string-array name="about_description_array">
+        <item>Track daily activities and health indicators, like steps and sleep, to better manage your well-being.</item>
+        <item>Complete our quick assessment to help tailor your mental health support and care.</item>
+        <item>Adjust medication dosage with guidance based on your health data and questionnaire feedback. </item>
+    </string-array>
+</resources>

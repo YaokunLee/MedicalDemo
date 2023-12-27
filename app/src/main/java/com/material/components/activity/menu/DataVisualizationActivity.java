@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -32,12 +36,18 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.material.components.R;
+import com.material.components.activity.about.AboutCompanyImage;
 import com.material.components.activity.card.SurveyActivity;
+import com.material.components.activity.settings.SettingSectioned;
 import com.material.components.mine.CustomBarChartView;
 import com.material.components.mine.DataVisualizationModel;
 import com.material.components.mine.healthdata.HealthDataManager;
 import com.material.components.mine.login.GoogleAccountData;
+import com.material.components.mine.login.GoogleLoginActivity;
 import com.material.components.mine.login.GoogleSignInManager;
 import com.material.components.utils.Tools;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -45,6 +55,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DataVisualizationActivity extends AppCompatActivity {
 
@@ -58,6 +69,8 @@ public class DataVisualizationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_drawer_news);
 
+        requestPermission();
+
         initRoot();
         initToolbar();
         initStatusBar();
@@ -67,6 +80,34 @@ public class DataVisualizationActivity extends AppCompatActivity {
         initDrawerHeader();
 
         getLifecycle().addObserver(observer);
+    }
+
+
+    private void requestPermission() {
+        if (XXPermissions.isGranted(DataVisualizationActivity.this, Permission.ACTIVITY_RECOGNITION) ) {
+            return;
+        }
+
+        XXPermissions.with(this)
+                .permission(Permission.ACTIVITY_RECOGNITION)
+                .request(new OnPermissionCallback() {
+
+                    @Override
+                    public void onGranted(@NonNull List<String> permissions, boolean allGranted) {
+                        Toast.makeText(DataVisualizationActivity.this, "Successfully obtained recording permission", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
+                        if (doNotAskAgain) {
+                            Toast.makeText(DataVisualizationActivity.this, "Permanently denied permission, please grant recording permission manually.", Toast.LENGTH_SHORT).show();
+
+                            XXPermissions.startPermissionActivity(DataVisualizationActivity.this, permissions);
+                        } else {
+                            Toast.makeText(DataVisualizationActivity.this, "Failed to obtain recording permission", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
 
@@ -181,10 +222,26 @@ public class DataVisualizationActivity extends AppCompatActivity {
                     showSingleChoiceDialog();
                 } else if (item.getItemId() == R.id.nav_contact_us) {
                     showDialogContactUS();
+                } else if (item.getItemId() == R.id.nav_privacy) {
+                    showPrivacyAndPolicy();
+                } else if (item.getItemId() == R.id.nav_privacy_settng) {
+                    showPrivacySettingPage();
+                } else if (item.getItemId() == R.id.nav_about_us) {
+                    showAboutUsPage();
+                } else if (item.getItemId() == R.id.nav_language) {
+
                 }
                 return true;
             }
         });
+    }
+
+    private void showPrivacySettingPage() {
+        this.startActivity(new android.content.Intent(this, SettingSectioned.class));
+    }
+
+    private void showAboutUsPage() {
+        this.startActivity(new android.content.Intent(this, AboutCompanyImage.class));
     }
 
     private void showSingleChoiceDialog() {
@@ -228,6 +285,36 @@ public class DataVisualizationActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    private void showPrivacyAndPolicy() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.setContentView(R.layout.dialog_gdpr_basic);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        ((TextView) dialog.findViewById(R.id.tv_content)).setMovementMethod(LinkMovementMethod.getInstance());
+
+        ((Button) dialog.findViewById(R.id.bt_accept)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Button Accept Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ((Button) dialog.findViewById(R.id.bt_decline)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Button Decline Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
 

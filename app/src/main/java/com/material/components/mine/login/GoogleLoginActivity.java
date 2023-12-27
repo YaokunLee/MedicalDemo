@@ -5,16 +5,25 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.material.components.R;
 import com.material.components.activity.menu.DataVisualizationActivity;
+import com.material.components.mine.MainActivity;
 import com.material.components.utils.Tools;
+
+import java.util.List;
 
 public class GoogleLoginActivity extends AppCompatActivity {
 
@@ -29,12 +38,25 @@ public class GoogleLoginActivity extends AppCompatActivity {
         initLoginButton();
         initStatusBar();
         setWelcomeText();
+        initPrivacyText();
+    }
+
+
+    private void initPrivacyText() {
+        TextView textView = findViewById(R.id.privacy_policy_text);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+
+    private void gotoMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void initSkipButton() {
         findViewById(R.id.skipBtn).setOnClickListener(v -> {
-            startActivity(new Intent(GoogleLoginActivity.this, DataVisualizationActivity.class));
-            finish();
+            gotoMainActivity();
         });
     }
 
@@ -43,8 +65,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
         GoogleSignInManager.getInstance().initLoginButton(loginButton, this, new GoogleSignInManager.OnLoginResult() {
             @Override
             public void onSuccess(SignInCredential credential) {
-                startActivity(new Intent(GoogleLoginActivity.this, DataVisualizationActivity.class));
-                finish();
+                gotoMainActivity();
             }
 
             @Override

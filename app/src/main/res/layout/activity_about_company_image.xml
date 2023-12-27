@@ -81,7 +81,7 @@
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Fusce Dictum Tristique Elit Nec Laculis"
+                        android:text="University of Copenhagen - Health App"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/grey_3"
                         app:fontFamily="sans-serif-medium" />
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Adams G"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Betty L"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -203,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Roberts"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -250,7 +250,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Miller W"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -286,7 +286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Kevin John"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -322,7 +322,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="Laura M"
+                        android:text="XXX"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_90"
                         app:fontFamily="sans-serif-medium" />
@@ -399,21 +399,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_middle"
-                    android:text="3265  Hinkle Deegan Lake Road, Dundee"
+                    android:text="Blegdamsvej 3B, 2200 København, Denmark"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New York, United State"
+                    android:text="Copenhagen, Denmark"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="14837"
+                    android:text="2200"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
 
