@@ -94,4 +94,9 @@ dependencies {
 
     // 轮子哥 权限库
     implementation 'com.github.getActivity:XXPermissions:18.0'
+
+    implementation 'com.google.android.gms:play-services-fitness:20.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+
+
 }

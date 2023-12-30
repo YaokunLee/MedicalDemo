@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.hjq.permissions.XXPermissions;
 import com.material.components.R;
 import com.material.components.activity.menu.DataVisualizationActivity;
 import com.material.components.mine.MainActivity;
+import com.material.components.mine.healthdata.HealthDataManager;
 import com.material.components.utils.Tools;
 
 import java.util.List;
@@ -33,6 +35,10 @@ public class GoogleLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_google);
+
+//        long start = System.currentTimeMillis() - 24 * 60 * 60 * 1000;
+//        long end = System.currentTimeMillis();
+//        HealthDataManager.getInstance().getFitnessPermission(this, start, end);
 
         initSkipButton();
         initLoginButton();
